@@ -13,7 +13,6 @@
 		} else {
 			Post();
 			$('#submitid').prop('disabled', true);
-			$('#submitid').prop("onclick", null);
 		}
 	}
 }
