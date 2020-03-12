@@ -1,20 +1,21 @@
 ﻿function Enviar() {
 
-    var nome = $("#nomeid").val();
-    //var telefone = $("#foneid").val().replace(/[^0-9]/g, "");
-    var telefone = $("#foneid").val();
-    $('#comoconheceuid').val($('#conheceuid').children("option:selected").val());
+	var nome = $("#nomeid").val();
+	//var telefone = $("#foneid").val().replace(/[^0-9]/g, "");
+	var telefone = $("#foneid").val();
+	$('#comoconheceuid').val($('#conheceuid').children("option:selected").val());
 
-    if (nome.match(/[A-z][a-z]* [A-z][a-z]*/) == null) {
-        alert('Nome Inválido, colocar Nome e Sobrenome');
-    } else {
-        if (telefone.length != 11 || telefone.substring(2, 3) !== '-') {
-            alert('Telefone Inválido');
-        } else {
+	if (nome.match(/[A-z][a-z]* [A-z][a-z]*/) == null) {
+		alert('Nome Inválido, colocar Nome e Sobrenome');
+	} else {
+		if (telefone.length != 11 || telefone.substring(2, 3) !== '-') {
+			alert('Telefone Inválido, formato permitido: xx-xxxxxxxx');
+		} else {
 			Post();
 			$('#submitid').prop('disabled', true);
-    }
-}
+			$('#submitid').prop("onclick", null);
+		}
+	}
 }
 function Post() {
 	var json = ConverterJSON("#formid");
@@ -38,7 +39,7 @@ function Post() {
 		//}
 	});
 };
-		
+
 
 function ConverterJSON(form) {
 	var array = jQuery(form).serializeArray();
@@ -51,10 +52,12 @@ function ConverterJSON(form) {
 		}
 	}
 	);
-	var checkbox = [];
-	$('input[type=checkbox]:checked').each(function () {
-		checkbox.push($(this).val());
-	});
-	json['redesocial'] = checkbox;
+	if ($('input[name="rede"]:checked').val() === "sim") {
+		var checkbox = [];
+		$('input[type=checkbox]:checked').each(function () {
+			checkbox.push($(this).val());
+		});
+		json['rede social'] = checkbox;
+	}
 	return json;
 }

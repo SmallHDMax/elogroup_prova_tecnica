@@ -6,7 +6,7 @@
 	<link href="formEstilo.css" rel="stylesheet" media="all" />
 	<script src="formJavaScript.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
+
 </head>
 <body>
 	<form name="form" id="formid">
@@ -14,21 +14,21 @@
 		<h1>Formulário</h1>
 
 		<p class="nome">
-			<input type="text" id="nomeid" placeholder="Nome" required="required" name="nome" />
 			<label for="nome">Nome</label>
+			<input type="text" id="nomeid" placeholder="Nome" required="required" name="nome" />
 		</p>
 		<p class="telefone">
-			<input type="text" id="foneid" placeholder="xx-xxxxxxxx" name="telefone" />
 			<label for="telefone">Fone</label>
+			<input type="text" id="foneid" placeholder="xx-xxxxxxxx" name="telefone" />
 		</p>
 		<p class="conheceu">
+			<label for="conheceu">Como nos conheceu? </label>
 			<select id="conheceuid" form="formid">
 				<option value="TV" selected>TV</option>
 				<option value="Internet">Internet</option>
 				<option value="Outros">Outros</option>
 			</select>
 			<input type="hidden" name="como_conheceu" id="comoconheceuid">
-			<label for="conheceu">Como nos conheceu? </label>
 		</p>
 		<p class="rede">
 			<label for="rede">Possui rede social?</label>
@@ -52,25 +52,25 @@
 				});
 			</script>
 		</p>
-	
-        <div class="sociais">
+
+		<div class="sociais">
 			<div class="linkedin">
 				<input type="checkbox" id="linkedinid" name="redesocial" value="linkedin" />
 				<label for="linkedin">LinkedIn</label>
 			</div>
-            <div class="facebook">
-                <input type="checkbox" id="facebookid" name="redesocial" value ="facebook"/>
-                <label for="facebook">Facebook</label>
-            </div>
-            <div class="insta">
-                <input type="checkbox" id="instaid" name="redesocial" value ="insta"/>
-                <label for="instagram">Instagram</label>
-            </div>
-        </div>
-	
-			<p class="submit">
-				<input type="submit" onclick="Enviar();" value="Enviar" id="submitid" />
-			</p>
+			<div class="facebook">
+				<input type="checkbox" id="facebookid" name="redesocial" value="facebook" />
+				<label for="facebook">Facebook</label>
+			</div>
+			<div class="insta">
+				<input type="checkbox" id="instaid" name="redesocial" value="insta" />
+				<label for="instagram">Instagram</label>
+			</div>
+		</div>
+
+		<p class="submit">
+			<input type="submit" onclick="Enviar();" value="Enviar" id="submitid" />
+		</p>
 
 	</form>
 </body>
