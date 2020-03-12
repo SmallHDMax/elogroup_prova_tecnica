@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Formulário</title>
+	<meta charset="utf-8" />
+	<link href="formEstilo.css" rel="stylesheet" media="all" />
+	<script src="formJavaScript.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#formid").submit(function (e) {
+				e.preventDefault();
+				var json = ConvertFormToJSON("#formid");
+				var Form = this;
+				alert(JSON.stringify(json));
+				alert(JSON.stringify($(json).serialize()));
+				//JSON.stringify($(json).serialize());
+				//alert(JSON.stringify($(Form).serializeArray()));
+
+				$.ajax({
+					cache: false,
+					url: 'http://localhost:8080',
+					type: "POST",
+					dataType: "json",
+					data: json,
+					context: Form
+					//success: function (callback) {
+						//Where $(this) => context == FORM
+						//alert(JSON.parse(callback));
+						//$(this).html("Success!");
+					//},
+					//error: function () {
+						//$(this).html("Error!");
+					//}
+				});
+			});
+		});
+
+		function ConvertFormToJSON(form) {
+			var array = jQuery(form).serializeArray();
+			var json = {};
+
+			jQuery.each(array, function () {
+				if (this.name === 'redesocial') {
+				} else {
+					json[this.name] = this.value || '';
+				}
+			}
+			);
+			var checkbox=[];
+			$('input[type=checkbox]:checked').each(function(){
+			checkbox.push($(this).val());
+			});
+			json['redesocial'] = checkbox;
+			return json;
+		}
+    
+	</script>
+</head>
+<body>
+	<form name="form" id="formid">
+
+		<h1>Formulário</h1>
+
+		<p class="nome">
+			<input type="text" id="nomeid" placeholder="Nome" required="required" name="nome" />
+			<label for="nome">Nome</label>
+		</p>
+		<p class="telefone">
+			<input type="text" id="foneid" placeholder="xx-xxxxxxxx" name="telefone" />
+			<label for="telefone">Fone</label>
+		</p>
+		<p class="conheceu">
+			<select id="conheceuid" form="formid">
+				<option value="TV" selected>TV</option>
+				<option value="Internet">Internet</option>
+				<option value="Outros">Outros</option>
+			</select>
+			<input type="hidden" name="como_conheceu" id="comoconheceuid">
+			<label for="conheceu">Como nos conheceu? </label>
+		</p>
+		<p class="rede">
+			<label for="rede">Possui rede social?</label>
+			<div>
+				<input type="radio" id="rede_sim_id" name="rede" value="sim"
+					   checked>
+				<label for="rede_sim_id">Sim</label>
+				<input type="radio" id="rede_nao_id" name="rede" value="não">
+				<label for="rede_nao_id">Não</label>
+			</div>
+			<script type="text/javascript">
+				$('input[name="rede"]').change(function () {
+					if ($('input[name="rede"]:checked').val() === "sim") {
+						$('.sociais').show();
+					} else {
+						$('.sociais').hide();
+						$('#linkedinid').prop("checked", false);
+						$('#facebookid').prop("checked", false);
+						$('#instaid').prop("checked", false);
+					}
+				});
+			</script>
+		</p>
+	
+        <div class="sociais">
+			<div class="linkedin">
+				<input type="checkbox" id="linkedinid" name="redesocial" value="linkedin" />
+				<label for="linkedin">LinkedIn</label>
+			</div>
+            <div class="facebook">
+                <input type="checkbox" id="facebookid" name="redesocial" value ="facebook"/>
+                <label for="facebook">Facebook</label>
+            </div>
+            <div class="insta">
+                <input type="checkbox" id="instaid" name="redesocial" value ="insta"/>
+                <label for="instagram">Instagram</label>
+            </div>
+        </div>
+	
+			<p class="submit">
+				<input type="submit" onclick="Enviar();" value="Enviar" id="submitid" />
+			</p>
+
+	</form>
+</body>
+</html>
