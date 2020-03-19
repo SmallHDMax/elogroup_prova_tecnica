@@ -1,21 +1,32 @@
-﻿function Enviar() {
+function Enviar() {
 
 	var nome = $("#nomeid").val();
-	//var telefone = $("#foneid").val().replace(/[^0-9]/g, "");
 	var telefone = $("#foneid").val();
+	var val = true;
+	var regex = /[A-z]/g;
 	$('#comoconheceuid').val($('#conheceuid').children("option:selected").val());
 
 	if (nome.match(/[A-z][a-z]* [A-z][a-z]*/) == null) {
 		alert('Nome Inválido, colocar Nome e Sobrenome');
-	} else {
-		if (telefone.length != 11 || telefone.substring(2, 3) !== '-') {
-			alert('Telefone Inválido, formato permitido: xx-xxxxxxxx');
-		} else {
-			Post();
-			$('#submitid').prop('disabled', true);
-		}
+		val = false;
 	}
-}
+	if (telefone == '') {
+		} else {
+		if (telefone.length != 11 || telefone.substring(2, 3) !== '-' || telefone.match(regex) != null) {
+				alert('Telefone Inválido, formato permitido: xx-xxxxxxxx , somente números');
+				val = false;
+			} 
+	}
+	if ($('input[name="rede"]:checked').val() === "sim" && $('input[name="redesocial"]:checked').val() == null) {
+		alert('Escolha uma rede social')
+		val = false;
+	}
+	if (val) {
+		Post();
+		$('#submitid').prop('disabled', true);
+	}
+	}
+
 function Post() {
 	var json = ConverterJSON("#formid");
 	var Form = this;
