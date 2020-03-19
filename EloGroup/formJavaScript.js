@@ -56,8 +56,7 @@ function ConverterJSON(form) {
 	var json = {};
 
 	jQuery.each(array, function () {
-		if (this.name === 'redesocial') {
-		} else {
+		if (this.name != 'redesocial') {
 			json[this.name] = this.value || '';
 		}
 	}
